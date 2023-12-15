@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Api Livros
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /myresource/livros:
+    get:
+      summary: Obtém todos os livros
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Livro'
+  /myresource/cadastrar:
+    post:
+      summary: Adiciona um novo livro
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Livro'
+      responses:
+        '200':
+          description: Livro adicionado com sucesso
+  /myresource/livros/{id}:
+    get:
+      summary: Obtém um livro por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Livro'
+  /myresource/atualizar/{id}:
+    put:
+      summary: Atualiza um livro por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Livro'
+      responses:
+        '200':
+          description: Livro atualizado com sucesso
+  /myresource/excluir/{id}:
+    delete:
+      summary: Exclui um livro por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Livro excluído com sucesso
+components:
+  schemas:
+    Livro:
+      type: object
+      properties:
+        id:
+          type: string
+        titulo:
+          type: string
+        autor:
+          type: string
